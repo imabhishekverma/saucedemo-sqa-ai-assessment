@@ -1,0 +1,15 @@
+{
+  "name": "saucedemo-sqa-assessment",
+  "version": "1.0.0",
+  "description": "One reviewed SauceDemo checkout smoke test for an SQA assessment",
+  "scripts": {
+    "test": "playwright test",
+    "test:headed": "playwright test --headed"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@playwright/test": "^1.64.0"
+  }
+}
