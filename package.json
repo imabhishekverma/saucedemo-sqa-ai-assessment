@@ -1,7 +1,7 @@
 {
   "name": "saucedemo-sqa-assessment",
   "version": "1.0.0",
-  "description": "One reviewed SauceDemo checkout smoke test for an SQA assessment",
+  "description": "One live-validated SauceDemo checkout smoke test for an SQA assessment",
   "scripts": {
     "test": "playwright test",
     "test:headed": "playwright test --headed"

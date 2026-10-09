@@ -1,8 +1,8 @@
-import { expect, test } from '@playwright/test';
+const { expect, test } = require('@playwright/test');
 
 const productName = 'Sauce Labs Backpack';
 
-function cents(label: string): number {
+function cents(label) {
   const amount = label.match(/\$\s*(\d+(?:\.\d{1,2})?)/)?.[1];
   if (!amount) throw new Error(`No currency amount in: ${label}`);
   return Math.round(Number(amount) * 100);

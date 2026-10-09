@@ -1,6 +1,6 @@
 # SauceDemo SQA assessment - checkout smoke test
 
-One live-validated end-to-end test covers `standard_user` signing in, adding a product, verifying cart and checkout data, and reaching the order completion page. The assessment PDF is delivered separately as a single document containing the exploratory work, three confirmed findings, embedded evidence, AI prompt log, and one-page QA strategy.
+One live-validated Playwright JavaScript end-to-end test covers `standard_user` signing in, adding a product, verifying cart and checkout data, and reaching the order completion page. The assessment PDF is delivered separately as a single document containing the exploratory work, three confirmed findings, embedded evidence, AI prompt log, and one-page QA strategy.
 
 ## Requirements
 
