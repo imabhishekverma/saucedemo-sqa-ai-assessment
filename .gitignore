@@ -2,7 +2,8 @@ node_modules/
 test-results/
 playwright-report/
 playwright/.cache/
-/scripts/
+/scripts/*
+!/scripts/responsive-audit.js
 /evidence/
 /tmp/
 /submission/
