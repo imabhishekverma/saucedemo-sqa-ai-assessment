@@ -3,8 +3,11 @@ const { defineConfig, devices } = require('@playwright/test');
 module.exports = defineConfig({
   testDir: './tests',
   fullyParallel: false,
+  workers: 2,
   forbidOnly: true,
   retries: 0,
+  timeout: 45000,
+  expect: { timeout: 10000 },
   reporter: [['list'], ['html', { open: 'never' }]],
   use: {
     baseURL: 'https://www.saucedemo.com',

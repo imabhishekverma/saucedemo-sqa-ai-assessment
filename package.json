@@ -1,9 +1,10 @@
 {
   "name": "saucedemo-sqa-assessment",
   "version": "1.0.0",
-  "description": "One live-validated SauceDemo checkout smoke test for an SQA assessment",
+  "description": "Playwright JavaScript smoke and focused regression suite for SauceDemo",
   "scripts": {
     "test": "playwright test",
+    "test:smoke": "playwright test tests/checkout.spec.js --grep \"standard user completes\"",
     "test:headed": "playwright test --headed",
     "test:responsive": "node scripts/responsive-audit.js"
   },
