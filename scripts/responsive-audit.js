@@ -46,6 +46,7 @@ async function inspect(page, engine, width, step, selectors) {
 async function runOne(engine, browser, width) {
   const context = await browser.newContext({ viewport: { width, height }, deviceScaleFactor: 1 });
   const page = await context.newPage();
+  let beforeSubmitFields;
   try {
     await page.goto('https://www.saucedemo.com/');
     await page.locator('[data-test="login-button"]').waitFor({ state: 'visible' });
@@ -76,8 +77,10 @@ async function runOne(engine, browser, width) {
     await page.locator('[data-test="firstName"]').fill('QA');
     await page.locator('[data-test="lastName"]').fill('Tester');
     await page.locator('[data-test="postalCode"]').fill('12345');
+    beforeSubmitFields = await Promise.all(['firstName', 'lastName', 'postalCode']
+      .map((name) => page.locator(`[data-test="${name}"]`).inputValue()));
     await page.locator('[data-test="continue"]').click();
-    await page.locator('[data-test="checkout-summary-container"]').waitFor({ state: 'visible' });
+    await page.locator('[data-test="checkout-summary-container"]').waitFor({ state: 'visible', timeout: 10000 });
     await inspect(page, engine, width, 'order overview', [['finish', '[data-test="finish"]'], ['total', '[data-test="total-label"]']]);
     await page.screenshot({ path: path.join(outputDir, `${engine}-${width}-overview.png`), fullPage: true });
 
@@ -85,7 +88,10 @@ async function runOne(engine, browser, width) {
     await page.locator('[data-test="complete-header"]').waitFor({ state: 'visible' });
     await inspect(page, engine, width, 'completion', [['complete header', '[data-test="complete-header"]']]);
   } catch (error) {
-    results.push({ engine, width, step: 'run error', url: page.url(), problems: [error.message] });
+    const afterSubmitFields = await Promise.all(['firstName', 'lastName', 'postalCode']
+      .map((name) => page.locator(`[data-test="${name}"]`).inputValue().catch(() => null)));
+    const formErrors = await page.locator('[data-test="error"]').allTextContents().catch(() => []);
+    results.push({ engine, width, step: 'run error', url: page.url(), beforeSubmitFields, afterSubmitFields, formErrors, problems: [error.message] });
     await page.screenshot({ path: path.join(outputDir, `${engine}-${width}-error.png`), fullPage: true }).catch(() => {});
     console.error(`${engine} ${width} ERROR: ${error.message}`);
   } finally {
@@ -95,9 +101,13 @@ async function runOne(engine, browser, width) {
 
 (async () => {
   for (const [engine, browserType] of Object.entries(engines)) {
+    if (process.env.AUDIT_ENGINE && process.env.AUDIT_ENGINE !== engine) continue;
     const browser = await browserType.launch();
     try {
-      for (const width of widths) await runOne(engine, browser, width);
+      for (const width of widths) {
+        if (process.env.AUDIT_WIDTH && Number(process.env.AUDIT_WIDTH) !== width) continue;
+        await runOne(engine, browser, width);
+      }
     } finally {
       await browser.close();
     }
