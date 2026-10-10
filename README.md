@@ -41,4 +41,4 @@ Failure screenshots and traces are saved under `test-results/`. The one-product 
 
 ## AI use and limits
 
-Codex drafted and revised the tests, datasets and fixtures. Live inspection established exact validation messages, sort options, product-detail selectors and cart behavior. Earlier locator assumptions were corrected: the menu icon image does not receive clicks, and `summary-info` is not a test ID on the overview page. The candidate should review every generated assertion and the three expected-failure decisions before submission.
+Codex drafted and revised the tests, datasets and fixtures. Live inspection established exact validation messages, sort options, product-detail selectors and cart behavior. Earlier locator assumptions were corrected: the menu icon image does not receive clicks, and `summary-info` is not a test ID on the overview page. The candidate should review every generated assertion and the five expected-failure decisions before submission.
