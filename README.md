@@ -17,6 +17,8 @@ npm test
 
 Run only the primary checkout flow with `npm run test:smoke`. To watch the browser, use `npm run test:headed`; inspect a failure with `npx playwright show-report`. All specs run in Playwright Chromium, Firefox and WebKit. WebKit on Windows is engine coverage, not branded Safari on macOS.
 
+The [GitHub Actions workflow](.github/workflows/playwright.yml) runs all three engines on Ubuntu after each push to `main`, on pull requests, or via **Actions → Playwright cross-browser tests → Run workflow**. Download the `playwright-report` artifact from a completed run for the HTML report, failure screenshots and traces. This also provides cross-browser coverage when Windows Smart App Control blocks the unsigned Firefox or WebKit browser files on a local machine; it does not change Windows security settings.
+
 ## Test coverage
 
 | Area | Distinct cases |
